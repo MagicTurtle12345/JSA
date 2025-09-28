@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Cooking - Công Thức Nấu Ăn</title>
+    <link rel="stylesheet" href="assets/css/style1.css">
+</head>
+<body>
+     Navigation 
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">🍳</div>
+                <span>Delicious</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="recipes.html" class="nav-link active">Cooking Recipes</a></li>
+            </ul>
+            <div class="nav-phone">
+                📞 (098) 123-4567
+            </div>
+        </div>
+    </nav>
+
+     Page Header 
+    <section class="page-header">
+        <div class="container">
+            <h1>Công Thức Nấu Ăn</h1>
+            <p>Khám phá và chia sẻ những công thức nấu ăn tuyệt vời</p>
+        </div>
+    </section>
+
+     Recipe Controls 
+    <section class="recipe-controls">
+        <div class="container">
+            <div class="controls-wrapper">
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm công thức...">
+                        <button id="searchBtn">🔍</button>
+                    </div>
+                    
+                    <div class="filter-options">
+                        <select id="categoryFilter">
+                            <option value="">Tất cả danh mục</option>
+                            <option value="appetizer">Khai vị</option>
+                            <option value="main">Món chính</option>
+                            <option value="dessert">Tráng miệng</option>
+                            <option value="drink">Đồ uống</option>
+                            <option value="soup">Canh/Súp</option>
+                        </select>
+                        
+                        <select id="difficultyFilter">
+                            <option value="">Tất cả độ khó</option>
+                            <option value="easy">Dễ</option>
+                            <option value="medium">Trung bình</option>
+                            <option value="hard">Khó</option>
+                        </select>
+                        
+                        <select id="timeFilter">
+                            <option value="">Thời gian nấu</option>
+                            <option value="15">Dưới 15 phút</option>
+                            <option value="30">Dưới 30 phút</option>
+                            <option value="60">Dưới 1 giờ</option>
+                            <option value="120">Trên 1 giờ</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="addRecipeBtn" class="btn-primary">
+                        ➕ Thêm Công Thức
+                    </button>
+                    <button id="viewModeBtn" class="btn-secondary">
+                        📋 Chế độ xem
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     Recipe Stats 
+    <section class="recipe-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalRecipes">0</span>
+                    <span class="stat-label">Tổng công thức</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="userRecipes">0</span>
+                    <span class="stat-label">Của bạn</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="favoriteRecipes">0</span>
+                    <span class="stat-label">Yêu thích</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="filteredRecipes">0</span>
+                    <span class="stat-label">Hiển thị</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     Recipe Grid 
+    <section class="recipes-section">
+        <div class="container">
+            <div id="recipesGrid" class="recipes-grid">
+                 Recipes will be loaded here by JavaScript 
+            </div>
+            
+            <div id="noRecipes" class="no-recipes" style="display: none;">
+                <div class="no-recipes-content">
+                    <div class="no-recipes-icon">🍽️</div>
+                    <h3>Không tìm thấy công thức nào</h3>
+                    <p>Hãy thử thay đổi bộ lọc hoặc thêm công thức mới!</p>
+                    <button id="addFirstRecipe" class="btn-primary">Thêm Công Thức Đầu Tiên</button>
+                </div>
+            </div>
+            
+            <div id="loadingRecipes" class="loading-recipes">
+                <div class="loading-spinner"></div>
+                <p>Đang tải công thức...</p>
+            </div>
+        </div>
+    </section>
+
+     Add Recipe Modal 
+    <div id="addRecipeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Thêm Công Thức Mới</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            
+            <form id="addRecipeForm" class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipeName">Tên món ăn *</label>
+                        <input type="text" id="recipeName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipeCategory">Danh mục *</label>
+                        <select id="recipeCategory" name="category" required>
+                            <option value="">Chọn danh mục</option>
+                            <option value="appetizer">Khai vị</option>
+                            <option value="main">Món chính</option>
+                            <option value="dessert">Tráng miệng</option>
+                            <option value="drink">Đồ uống</option>
+                            <option value="soup">Canh/Súp</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipeDifficulty">Độ khó *</label>
+                        <select id="recipeDifficulty" name="difficulty" required>
+                            <option value="">Chọn độ khó</option>
+                            <option value="easy">Dễ</option>
+                            <option value="medium">Trung bình</option>
+                            <option value="hard">Khó</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipeTime">Thời gian (phút) *</label>
+                        <input type="number" id="recipeTime" name="time" min="1" max="480" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeServings">Khẩu phần *</label>
+                    <input type="number" id="recipeServings" name="servings" min="1" max="20" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeDescription">Mô tả ngắn</label>
+                    <textarea id="recipeDescription" name="description" rows="3" placeholder="Mô tả ngắn về món ăn..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeIngredients">Nguyên liệu *</label>
+                    <textarea id="recipeIngredients" name="ingredients" rows="5" required placeholder="Mỗi nguyên liệu một dòng, ví dụ:&#10;- 500g thịt bò&#10;- 2 củ hành tây&#10;- 3 tép tỏi"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeInstructions">Cách làm *</label>
+                    <textarea id="recipeInstructions" name="instructions" rows="8" required placeholder="Mỗi bước một dòng, ví dụ:&#10;1. Rửa sạch thịt bò, cắt miếng vừa ăn&#10;2. Phi thơm hành tỏi&#10;3. Xào thịt bò đến khi chín"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeImage">URL hình ảnh</label>
+                    <input type="url" id="recipeImage" name="image" placeholder="https://example.com/image.jpg">
+                    <small>Để trống để sử dụng hình ảnh mặc định</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeTags">Tags (tùy chọn)</label>
+                    <input type="text" id="recipeTags" name="tags" placeholder="Ví dụ: cay, chay, nhanh gọn (cách nhau bằng dấu phẩy)">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelRecipe">Hủy</button>
+                    <button type="submit" class="btn-primary">Thêm Công Thức</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+     Recipe Detail Modal 
+    <div id="recipeDetailModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="detailRecipeName">Tên món ăn</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-body recipe-detail">
+                <div class="recipe-detail-content">
+                    <div class="recipe-image-section">
+                        <img id="detailRecipeImage" src="/placeholder.svg" alt="Recipe Image">
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Danh mục:</span>
+                                <span id="detailRecipeCategory"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Độ khó:</span>
+                                <span id="detailRecipeDifficulty"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Thời gian:</span>
+                                <span id="detailRecipeTime"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Khẩu phần:</span>
+                                <span id="detailRecipeServings"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-content-section">
+                        <div class="recipe-description">
+                            <p id="detailRecipeDescription"></p>
+                        </div>
+                        
+                        <div class="recipe-ingredients">
+                            <h3>Nguyên Liệu</h3>
+                            <ul id="detailRecipeIngredients"></ul>
+                        </div>
+                        
+                        <div class="recipe-instructions">
+                            <h3>Cách Làm</h3>
+                            <ol id="detailRecipeInstructions"></ol>
+                        </div>
+                        
+                        <div class="recipe-tags" id="detailRecipeTags" style="display: none;">
+                            <h3>Tags</h3>
+                            <div class="tags-container"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recipe-actions">
+                    <button id="favoriteBtn" class="btn-secondary">
+                        <span class="heart">♡</span> Yêu thích
+                    </button>
+                    <button id="shareBtn" class="btn-secondary">📤 Chia sẻ</button>
+                    <button id="printBtn" class="btn-secondary">🖨️ In</button>
+                    <button id="editRecipeBtn" class="btn-primary" style="display: none;">✏️ Chỉnh sửa</button>
+                    <button id="deleteRecipeBtn" class="btn-danger" style="display: none;">🗑️ Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     Footer 
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Liên Hệ</h3>
+                    <p>📞 (098) 123-4567</p>
+                    <p>📧 info@delicious.com</p>
+                    <p>📍 123 Đường Ẩm Thực, TP.HCM</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Điều Hướng</h3>
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="about.html">Giới Thiệu</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                        <li><a href="recipes.html">Công Thức</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Delicious Cooking. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/recipe.js"></script>
+</body>
+</html>

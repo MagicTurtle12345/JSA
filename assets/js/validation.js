@@ -340,7 +340,7 @@ function handleFormSubmit(formId, isLogin = false) {
       // Redirect after success (simulate)
       setTimeout(() => {
         alert("Chuyển hướng đến trang chủ...")
-        // window.location.href = 'dashboard.html';
+        // window.location.href = 'about.html';
       }, 2000)
     } catch (error) {
       alert(error.message)

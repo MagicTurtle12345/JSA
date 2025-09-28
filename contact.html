@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Cooking - Liên Hệ</title>
+    <link rel="stylesheet" href="assets/css/style1.css">
+</head>
+<body>
+     Navigation 
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">🍳</div>
+                <span>Delicious</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="recipes.html" class="nav-link">Cooking Recipes</a></li>
+            </ul>
+            <div class="nav-phone">
+                📞 (098) 123-4567
+            </div>
+        </div>
+    </nav>
+
+     Page Header 
+    <section class="page-header">
+        <div class="container">
+            <h1>Liên Hệ Với Chúng Tôi</h1>
+            <p>Chia sẻ ý tưởng, báo cáo lỗi hoặc đơn giản chỉ là nói xin chào!</p>
+        </div>
+    </section>
+
+     Contact Form Section 
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Hãy Kết Nối Với Chúng Tôi</h2>
+                    <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến đóng góp từ cộng đồng. Dù bạn có ý tưởng mới cho công thức, phát hiện lỗi trên trang web, hay chỉ muốn chia sẻ trải nghiệm nấu ăn, đừng ngần ngại liên hệ với chúng tôi!</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">📧</div>
+                            <div class="method-info">
+                                <h3>Email</h3>
+                                <p>info@delicious.com</p>
+                                <span>Phản hồi trong vòng 24 giờ</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">📞</div>
+                            <div class="method-info">
+                                <h3>Điện Thoại</h3>
+                                <p>(098) 123-4567</p>
+                                <span>Thứ 2 - Thứ 6: 9:00 - 18:00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">📍</div>
+                            <div class="method-info">
+                                <h3>Địa Chỉ</h3>
+                                <p>123 Đường Ẩm Thực</p>
+                                <span>Quận 1, TP. Hồ Chí Minh</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">💬</div>
+                            <div class="method-info">
+                                <h3>Mạng Xã Hội</h3>
+                                <p>@DeliciousCooking</p>
+                                <span>Facebook, Instagram, YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Họ và Tên *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Số Điện Thoại</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Chủ Đề *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Chọn chủ đề...</option>
+                                <option value="idea">Ý Tưởng Mới</option>
+                                <option value="bug">Báo Cáo Lỗi</option>
+                                <option value="recipe">Đóng Góp Công Thức</option>
+                                <option value="feedback">Phản Hồi</option>
+                                <option value="partnership">Hợp Tác</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="priority">Mức Độ Ưu Tiên</label>
+                            <select id="priority" name="priority">
+                                <option value="low">Thấp</option>
+                                <option value="medium" selected>Trung Bình</option>
+                                <option value="high">Cao</option>
+                                <option value="urgent">Khẩn Cấp</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Nội Dung *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Hãy mô tả chi tiết ý tưởng, lỗi hoặc phản hồi của bạn..."></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                Tôi muốn nhận bản tin về công thức mới và cập nhật từ Delicious Cooking
+                            </label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                Tôi đồng ý với <a href="#" class="terms-link">Điều khoản sử dụng</a> và <a href="#" class="terms-link">Chính sách bảo mật</a> *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">
+                            <span class="btn-text">Gửi Tin Nhắn</span>
+                            <span class="btn-loading" style="display: none;">Đang gửi...</span>
+                        </button>
+                    </form>
+                    
+                    <div id="formMessage" class="form-message" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     FAQ Section 
+    <section class="faq-section">
+        <div class="container">
+            <h2>Câu Hỏi Thường Gặp</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Làm thế nào để đóng góp công thức mới?</h3>
+                    <p>Bạn có thể gửi công thức qua form liên hệ hoặc trực tiếp tại trang Cooking Recipes. Chúng tôi sẽ xem xét và phản hồi trong vòng 48 giờ.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Tôi phát hiện lỗi trên trang web, làm sao báo cáo?</h3>
+                    <p>Hãy chọn "Báo Cáo Lỗi" trong form liên hệ và mô tả chi tiết lỗi bạn gặp phải. Chúng tôi sẽ khắc phục sớm nhất có thể.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Có thể hợp tác với Delicious Cooking không?</h3>
+                    <p>Chúng tôi luôn chào đón các cơ hội hợp tác. Hãy chọn "Hợp Tác" và chia sẻ ý tưởng của bạn.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Thời gian phản hồi là bao lâu?</h3>
+                    <p>Chúng tôi cam kết phản hồi trong vòng 24 giờ cho email và 48 giờ cho các yêu cầu phức tạp khác.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     Footer 
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Liên Hệ</h3>
+                    <p>📞 (098) 123-4567</p>
+                    <p>📧 info@delicious.com</p>
+                    <p>📍 123 Đường Ẩm Thực, TP.HCM</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Điều Hướng</h3>
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="about.html">Giới Thiệu</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                        <li><a href="recipes.html">Công Thức</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Delicious Cooking. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/contact.js"></script>
+</body>
+</html>
