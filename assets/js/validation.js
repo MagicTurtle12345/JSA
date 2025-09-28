@@ -168,6 +168,10 @@ function validateForm(formId) {
   let isValid = true
   const form = $(formId)
 
+  // Đảm bảo ẩn tất cả lỗi trước khi validate lại
+  $$(`${formId} .error-message.show`).forEach(el => el.classList.remove('show'))
+  $$(`${formId} input.error`).forEach(el => el.classList.remove('error'))
+
   if (formId === "#loginForm") {
     // Login form validation
     const email = $("#loginEmail").value.trim()
@@ -179,16 +183,13 @@ function validateForm(formId) {
     } else if (!validators.email(email)) {
       showError("#loginEmail", errorMessages.email)
       isValid = false
-    } else {
-      hideError("#loginEmail")
-    }
+    } 
+    // Không cần hideError ở đây, chỉ cần không show nếu không có lỗi
 
     if (!validators.required(password)) {
       showError("#loginPassword", errorMessages.required)
       isValid = false
-    } else {
-      hideError("#loginPassword")
-    }
+    } 
   } else if (formId === "#registerForm") {
     // Register form validation
     const name = $("#registerName").value.trim()
@@ -205,8 +206,6 @@ function validateForm(formId) {
     } else if (!validators.name(name)) {
       showError("#registerName", errorMessages.name)
       isValid = false
-    } else {
-      hideError("#registerName")
     }
 
     // Email validation
@@ -216,8 +215,6 @@ function validateForm(formId) {
     } else if (!validators.email(email)) {
       showError("#registerEmail", errorMessages.email)
       isValid = false
-    } else {
-      hideError("#registerEmail")
     }
 
     // Password validation
@@ -227,8 +224,6 @@ function validateForm(formId) {
     } else if (!validators.password(password)) {
       showError("#registerPassword", errorMessages.password)
       isValid = false
-    } else {
-      hideError("#registerPassword")
     }
 
     // Confirm password validation
@@ -238,16 +233,12 @@ function validateForm(formId) {
     } else if (!validators.passwordMatch(password, confirmPassword)) {
       showError("#confirmPassword", errorMessages.passwordMismatch)
       isValid = false
-    } else {
-      hideError("#confirmPassword")
     }
 
     // Phone validation (optional)
     if (phone && !validators.phone(phone)) {
       showError("#registerPhone", errorMessages.phone)
       isValid = false
-    } else {
-      hideError("#registerPhone")
     }
 
     // Terms validation
@@ -261,23 +252,30 @@ function validateForm(formId) {
 }
 
 // Show success message
-function showSuccess(message) {
+function showSuccess(message, callback) {
   // Create success message element if it doesn't exist
   let successElement = $(".success-message")
   if (!successElement) {
     successElement = document.createElement("div")
     successElement.className = "success-message"
     const form = $(".auth-form")
-    form.insertBefore(successElement, form.firstChild)
+    if (form) { // Thêm kiểm tra null
+        form.insertBefore(successElement, form.firstChild)
+    } else {
+        document.body.appendChild(successElement); // Fallback
+    }
   }
 
   successElement.textContent = message
   successElement.classList.add("show")
 
-  // Hide after 3 seconds
+  // Hide after 1.5 seconds, then execute callback
   setTimeout(() => {
     successElement.classList.remove("show")
-  }, 3000)
+    if (callback) {
+      callback()
+    }
+  }, 1500) 
 }
 
 // Simulate API call
@@ -285,12 +283,12 @@ function simulateApiCall(data, isLogin = false) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate random success/failure for demo
-      const success = Math.random() > 0.3
+      const success = Math.random() > 0.1 // Tăng tỉ lệ thành công
 
       if (success) {
         resolve({
           success: true,
-          message: isLogin ? "Đăng nhập thành công!" : "Đăng ký thành công!",
+          message: isLogin ? "Đăng nhập thành công! Chuyển hướng..." : "Đăng ký thành công! Chuyển hướng...",
           user: {
             id: Date.now(),
             email: data.email,
@@ -303,9 +301,17 @@ function simulateApiCall(data, isLogin = false) {
           message: isLogin ? "Email hoặc mật khẩu không đúng" : "Email đã được sử dụng",
         })
       }
-    }, 1500)
+    }, 1000) 
   })
 }
+
+// Hàm để reset nút bấm
+function resetButtonState(submitButton, isLogin) {
+    submitButton.classList.remove("loading")
+    submitButton.disabled = false
+    submitButton.textContent = isLogin ? "Đăng nhập" : "Đăng ký"
+}
+
 
 // Handle form submission
 function handleFormSubmit(formId, isLogin = false) {
@@ -315,6 +321,7 @@ function handleFormSubmit(formId, isLogin = false) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault()
 
+    // Bỏ reset trang nếu validate lỗi
     if (!validateForm(formId)) {
       return
     }
@@ -331,25 +338,28 @@ function handleFormSubmit(formId, isLogin = false) {
     try {
       const result = await simulateApiCall(data, isLogin)
 
-      // Show success message
-      showSuccess(result.message)
-
       // Store user data (in real app, use proper authentication)
       localStorage.setItem("user", JSON.stringify(result.user))
 
-      // Redirect after success (simulate)
-      setTimeout(() => {
-        alert("Chuyển hướng đến trang chủ...")
-        // window.location.href = 'about.html';
-      }, 2000)
+      // 1. Show success message (1.5s)
+      // 2. Sau đó, CHUYỂN HƯỚNG
+      showSuccess(result.message, () => {
+        // Reset nút bấm TRƯỚC KHI chuyển hướng để tránh hiện loading nếu người dùng quay lại
+        resetButtonState(submitButton, isLogin);
+        
+        // Chuyển hướng đến about.html
+        window.location.href = 'about.html'
+      })
+
     } catch (error) {
+      // Xử lý lỗi
       alert(error.message)
-    } finally {
-      // Reset button state
-      submitButton.classList.remove("loading")
-      submitButton.disabled = false
-      submitButton.textContent = isLogin ? "Đăng nhập" : "Đăng ký"
-    }
+      
+      // Reset nút bấm VÀ trạng thái loading ngay lập tức khi có lỗi
+      resetButtonState(submitButton, isLogin);
+
+    } 
+    // KHÔNG DÙNG khối finally ở đây vì nó sẽ reset nút bấm trước khi chuyển hướng thành công
   })
 }
 

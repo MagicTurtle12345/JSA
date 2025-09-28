@@ -7,7 +7,8 @@
   --foreground: #2d3748; /* Dark gray cho text */
   --card: #ffffff; /* White cho cards */
   --card-foreground: #2d3748;
-  --primary: #2f855a; /* Green color từ hình ảnh */
+  --primary: #2f855a; /* Green color từ hình ảnh (màu chủ đạo) */
+  --primary-hover: #276749; /* Darker green */
   --primary-foreground: #ffffff;
   --secondary: #edf2f7;
   --secondary-foreground: #4a5568;
@@ -15,322 +16,298 @@
   --muted-foreground: #718096;
   --border: #e2e8f0;
   --input: #ffffff;
+  --input-focus: #b2f5ea; /* Light cyan focus ring */
   --ring: #2f855a;
   --destructive: #e53e3e;
-  --accent: #d69e2e; /* Warm accent color */
-  --radius: 0.5rem;
+  --accent: #d69e2e; /* Warm accent color (màu phụ đạo) */
+  --radius: 0.75rem; /* Tăng bo tròn góc */
 }
 
-.dark {
-  --background: #1a202c;
-  --foreground: #f7fafc;
-  --card: #2d3748;
-  --card-foreground: #f7fafc;
-  --primary: #48bb78;
-  --primary-foreground: #ffffff;
-  --secondary: #4a5568;
-  --secondary-foreground: #e2e8f0;
-  --muted: #4a5568;
-  --muted-foreground: #a0aec0;
-  --border: #4a5568;
-  --input: #2d3748;
-  --ring: #48bb78;
-  --destructive: #fc8181;
-}
-
-/* Reset và base styles */
+/* Base Styles */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  /* Updated font family to match restaurant theme */
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--background);
+  font-family: "Inter", sans-serif;
   color: var(--foreground);
-  line-height: 1.6;
+  background-color: var(--background);
+  line-height: 1.5;
   min-height: 100vh;
 }
 
-/* Updated auth container with restaurant-style background */
+/* Auth Container */
 .auth-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background: var(--background);
-  position: relative;
+  background: linear-gradient(135deg, var(--background) 50%, #f0e6d6 100%); /* Thêm gradient nhẹ */
 }
 
-/* Added subtle pattern overlay */
-.auth-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(47, 133, 90, 0.05) 1px, transparent 0);
-  background-size: 20px 20px;
-  pointer-events: none;
-}
-
-/* Updated auth card with restaurant-style design */
+/* Auth Card (Đẹp hơn) */
 .auth-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
   width: 100%;
   max-width: 440px;
   padding: 3rem;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); /* Shadow nổi bật hơn */
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Updated card accent border */
-.auth-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+.auth-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 7px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* Updated auth header with restaurant typography */
+/* Brand Section (Logo & Tên thương hiệu) */
+.auth-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 0.5rem;
+}
+
+.logo {
+    font-size: 2.5rem; /* Kích thước icon to hơn */
+    line-height: 1;
+}
+
+.brand-name {
+    font-family: "Playfair Display", serif; /* Font chữ sang trọng cho tên thương hiệu */
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary); /* Màu xanh lá cây chủ đạo */
+    letter-spacing: 0.5px;
+}
+
+/* Auth Header */
 .auth-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .auth-header h1 {
-  font-family: "Quétrial";
-  font-size: 2.25rem;
+  font-family: Questrial;
+  font-size: 2rem;
   font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  color: var(--card-foreground);
 }
 
 .auth-header p {
   color: var(--muted-foreground);
   font-size: 1rem;
-  font-weight: 400;
 }
 
-/* Form styles */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
-
+/* Form Group */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
-/* Updated label styling */
 .form-group label {
-  font-weight: 500;
-  color: var(--foreground);
-  font-size: 0.95rem;
-  letter-spacing: 0.01em;
-}
-
-/* Updated input styling to match restaurant theme */
-.form-group input {
-  padding: 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--input);
-  color: var(--foreground);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.1);
-  transform: translateY(-1px);
-}
-
-.form-group input.error {
-  border-color: var(--destructive);
-  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
-}
-
-.error-message {
-  color: var(--destructive);
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  display: none;
-  font-weight: 500;
-}
-
-.error-message.show {
   display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
 }
 
-/* Form options */
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"],
+.auth-form input[type="tel"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--input);
+  color: var(--foreground);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+/* Hiệu ứng focus input (Đẹp hơn) */
+.auth-form input:focus {
+  border-color: var(--primary);
+  outline: 2px solid var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.2); /* Shadow nhẹ màu primary */
+}
+
+/* Error Message */
+.error-message {
+  display: block;
+  color: var(--destructive);
+  font-size: 0.8125rem;
+  margin-top: 0.25rem;
+}
+
+/* Form Options (Checkbox và Quên mật khẩu) */
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Updated checkbox styling */
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: var(--muted-foreground);
-  transition: color 0.2s ease;
-}
-
-.checkbox-container:hover {
-  color: var(--foreground);
-}
-
-.checkbox-container input[type="checkbox"] {
-  display: none;
-}
-
-.checkmark {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--border);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  background: var(--input);
-}
-
-.checkbox-container input[type="checkbox"]:checked + .checkmark {
-  background: var(--primary);
-  border-color: var(--primary);
-  transform: scale(1.05);
-}
-
-.checkbox-container input[type="checkbox"]:checked + .checkmark::after {
-  content: "✓";
-  color: var(--primary-foreground);
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.forgot-password,
-.terms-link {
-  color: var(--primary);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.forgot-password:hover,
-.terms-link:hover {
-  color: var(--accent);
-  text-decoration: underline;
-}
-
-/* Updated auth button with restaurant styling */
-.auth-button {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  margin-bottom: 1.5rem;
   font-size: 0.875rem;
 }
 
+/* Checkbox (Custom checkbox) */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: var(--muted-foreground);
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1rem;
+  width: 1rem;
+  background-color: var(--input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 3px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Forgot Password & Terms Link */
+.forgot-password, .terms-link {
+  color: var(--accent); /* Màu vàng ấm nổi bật */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover, .terms-link:hover {
+  color: #a06b23; /* Darker accent */
+  text-decoration: underline;
+}
+
+/* Auth Button (Nút bấm đẹp hơn) */
+.auth-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius);
+  border: none;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  text-align: center;
+  text-decoration: none; /* Dùng cho cả button và link */
+}
+
 .auth-button.primary {
-  background: var(--primary);
+  background-color: var(--primary);
   color: var(--primary-foreground);
-  box-shadow: 0 4px 12px rgba(47, 133, 90, 0.3);
+  box-shadow: 0 4px 6px rgba(47, 133, 90, 0.2); /* Shadow cho nút */
 }
 
 .auth-button.primary:hover {
-  background: #276749;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(47, 133, 90, 0.4);
+  background-color: var(--primary-hover);
+  transform: translateY(-1px); /* Hiệu ứng nhấc nhẹ */
+  box-shadow: 0 6px 8px rgba(47, 133, 90, 0.3);
 }
 
-.auth-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+.auth-button.primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(47, 133, 90, 0.2);
 }
 
-/* Auth divider */
+/* Auth Divider */
 .auth-divider {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin: 2rem 0;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
 }
 
 .auth-divider::before,
 .auth-divider::after {
-  content: "";
+  content: '';
   flex: 1;
-  height: 1px;
-  background: var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.auth-divider span {
-  color: var(--muted-foreground);
-  font-size: 0.95rem;
-  font-weight: 500;
+.auth-divider:not(:empty)::before {
+  margin-right: 0.5em;
 }
 
-/* Auth footer */
+.auth-divider:not(:empty)::after {
+  margin-left: 0.5em;
+}
+
+/* Auth Footer */
 .auth-footer {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
 }
 
 .auth-footer p {
-  color: var(--muted-foreground);
-  font-size: 0.95rem;
+    color: var(--muted-foreground);
 }
 
 .auth-footer a {
   color: var(--primary);
-  text-decoration: none;
   font-weight: 600;
-  transition: color 0.2s ease;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .auth-footer a:hover {
-  color: var(--accent);
+  color: var(--primary-hover);
+  text-decoration: underline;
 }
 
-/* Updated password strength indicator */
+/* Password Strength (Không thay đổi) */
 .password-strength {
   display: flex;
   gap: 0.5rem;
@@ -364,20 +341,25 @@ body {
   }
 
   .auth-card {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .auth-header h1 {
-    font-size: 1.875rem;
+    font-size: 1.75rem;
+  }
+
+  .auth-brand .brand-name {
+    font-size: 1.5rem;
   }
 
   .form-options {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 
-/* Updated loading state */
+/* Updated loading state (Không thay đổi) */
 .loading {
   position: relative;
   overflow: hidden;
@@ -390,33 +372,12 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(47, 133, 90, 0.1), transparent);
-  animation: loading 1.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: loading-shimmer 1.5s infinite;
 }
 
-@keyframes loading {
-  0% {
-    left: -100%;
-  }
-  100% {
+@keyframes loading-shimmer {
+  to {
     left: 100%;
   }
-}
-
-/* Updated success message */
-.success-message {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 1rem;
-  border-radius: var(--radius);
-  text-align: center;
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-  display: none;
-  box-shadow: 0 4px 12px rgba(47, 133, 90, 0.2);
-}
-
-.success-message.show {
-  display: block;
 }

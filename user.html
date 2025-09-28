@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ Người dùng - Delicious</title>
+    <link rel="stylesheet" href="assets/css/style1.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">🍳</div>
+                <span>Delicious</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="recipes.html" class="nav-link">Cooking Recipes</a></li>
+                <li><a href="user.html" class="nav-link active">Profile</a></li> 
+            </ul>
+            <div class="nav-phone">
+                📞 (098) 123-4567
+            </div>
+        </div>
+    </nav>
+
+    <section class="profile-container">
+        <div class="container">
+            <div class="profile-card">
+                
+                <div class="profile-sidebar">
+                    <div class="avatar-section">
+                        <input type="file" id="avatar-upload" accept="image/*">
+                        <div class="avatar-preview" onclick="document.getElementById('avatar-upload').click()">
+                            <img id="user-avatar" src="assets/images/default-avatar.png" alt="Ảnh đại diện">
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera"></i> 
+                            </div>
+                        </div>
+                        <h2 id="profile-name">Tên Người Dùng</h2>
+                        <p id="profile-email" style="color: #999; font-size: 0.9rem;">user@email.com</p>
+                        <button id="logout-sidebar-btn" class="btn-primary" style="margin-top: 20px;">Đăng Xuất</button>
+                    </div>
+                </div>
+
+                <div class="profile-main">
+                    <div class="profile-header">
+                        <h1>Quản lý Tài khoản</h1>
+                    </div>
+                    
+                    <div class="profile-tabs">
+                        <button class="tab-button active" data-tab="info">Thông tin chung</button>
+                        <button class="tab-button" data-tab="edit-info">Cập nhật thông tin</button>
+                        <button class="tab-button" data-tab="change-password">Đổi mật khẩu</button>
+                    </div>
+
+                    <div class="tab-content">
+                        
+                        <div id="info" class="tab-pane active">
+                            <div class="info-display"><strong>Họ và Tên:</strong> <span id="display-name">N/A</span></div>
+                            <div class="info-display"><strong>Email:</strong> <span id="display-email">N/A</span></div>
+                            <div class="info-display"><strong>SĐT:</strong> <span id="display-phone">Chưa cập nhật</span></div>
+                            <div class="info-display"><strong>Ngày đăng ký:</strong> <span id="display-join-date">N/A</span></div>
+                        </div>
+
+                        <div id="edit-info" class="tab-pane">
+                            <div id="update-info-alert" class="alert-message"></div>
+                            <form id="updateInfoForm">
+                                <div class="form-group">
+                                    <label for="updateName">Họ và Tên</label>
+                                    <input type="text" id="updateName" name="name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updatePhone">Số điện thoại</label>
+                                    <input type="tel" id="updatePhone" name="phone" class="form-control">
+                                </div>
+                                <button type="submit" class="btn-primary">Lưu thay đổi</button>
+                            </form>
+                        </div>
+
+                        <div id="change-password" class="tab-pane">
+                            <div id="change-password-alert" class="alert-message"></div>
+                            <form id="changePasswordForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Mật khẩu hiện tại</label>
+                                    <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">Mật khẩu mới</label>
+                                    <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmNewPassword">Xác nhận mật khẩu mới</label>
+                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn-primary">Đổi mật khẩu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Liên Hệ</h3>
+                    <p>📞 (098) 123-4567</p>
+                    <p>📧 info@delicious.com</p>
+                    <p>📍 123 Đường Ẩm Thực, TP.HCM</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Điều Hướng</h3>
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="about.html">Giới Thiệu</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                        <li><a href="recipes.html">Công Thức</a></li>
+                        <li><a href="user.html">Hồ sơ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Delicious Cooking. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+    
