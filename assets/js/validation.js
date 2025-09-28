@@ -1,3 +1,4 @@
+
 // Utility functions
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
@@ -166,8 +167,7 @@ function setupRealTimeValidation() {
 // Form validation
 function validateForm(formId) {
   let isValid = true
-  const form = $(formId)
-
+  
   // Đảm bảo ẩn tất cả lỗi trước khi validate lại
   $$(`${formId} .error-message.show`).forEach(el => el.classList.remove('show'))
   $$(`${formId} input.error`).forEach(el => el.classList.remove('error'))
@@ -184,7 +184,6 @@ function validateForm(formId) {
       showError("#loginEmail", errorMessages.email)
       isValid = false
     } 
-    // Không cần hideError ở đây, chỉ cần không show nếu không có lỗi
 
     if (!validators.required(password)) {
       showError("#loginPassword", errorMessages.required)
@@ -197,7 +196,7 @@ function validateForm(formId) {
     const password = $("#registerPassword").value
     const confirmPassword = $("#confirmPassword").value
     const phone = $("#registerPhone").value.trim()
-    const agreeTerms = $("#agreeTerms").checked
+    const agreeTerms = $("#agreeTerms") ? $("#agreeTerms").checked : true; // Giả định có agreeTerms
 
     // Name validation
     if (!validators.required(name)) {
@@ -278,33 +277,6 @@ function showSuccess(message, callback) {
   }, 1500) 
 }
 
-// Simulate API call
-function simulateApiCall(data, isLogin = false) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Simulate random success/failure for demo
-      const success = Math.random() > 0.1 // Tăng tỉ lệ thành công
-
-      if (success) {
-        resolve({
-          success: true,
-          message: isLogin ? "Đăng nhập thành công! Chuyển hướng..." : "Đăng ký thành công! Chuyển hướng...",
-          user: {
-            id: Date.now(),
-            email: data.email,
-            name: data.name || "User",
-          },
-        })
-      } else {
-        reject({
-          success: false,
-          message: isLogin ? "Email hoặc mật khẩu không đúng" : "Email đã được sử dụng",
-        })
-      }
-    }, 1000) 
-  })
-}
-
 // Hàm để reset nút bấm
 function resetButtonState(submitButton, isLogin) {
     submitButton.classList.remove("loading")
@@ -325,6 +297,13 @@ function handleFormSubmit(formId, isLogin = false) {
     if (!validateForm(formId)) {
       return
     }
+    
+    // Yêu cầu data.js phải được tải trước
+    if (!window.AuthData || (!window.AuthData.login && isLogin) || (!window.AuthData.register && !isLogin)) {
+        alert("Lỗi hệ thống: Không tìm thấy thư viện data.js. Vui lòng kiểm tra lại thứ tự tải script.");
+        return;
+    }
+
 
     // Show loading state
     submitButton.classList.add("loading")
@@ -336,15 +315,23 @@ function handleFormSubmit(formId, isLogin = false) {
     const data = Object.fromEntries(formData.entries())
 
     try {
-      const result = await simulateApiCall(data, isLogin)
-
-      // Store user data (in real app, use proper authentication)
+      let result;
+      
+      if (isLogin) {
+          // GỌI HÀM LOGIN TỪ DATA.JS
+          result = await window.AuthData.login(data.email, data.password);
+      } else {
+          // GỌI HÀM REGISTER TỪ DATA.JS
+          result = await window.AuthData.register(data);
+      }
+      
+      // Store user data
       localStorage.setItem("user", JSON.stringify(result.user))
 
       // 1. Show success message (1.5s)
       // 2. Sau đó, CHUYỂN HƯỚNG
       showSuccess(result.message, () => {
-        // Reset nút bấm TRƯỚC KHI chuyển hướng để tránh hiện loading nếu người dùng quay lại
+        // Reset nút bấm TRƯỚC KHI chuyển hướng 
         resetButtonState(submitButton, isLogin);
         
         // Chuyển hướng đến about.html
@@ -352,14 +339,12 @@ function handleFormSubmit(formId, isLogin = false) {
       })
 
     } catch (error) {
-      // Xử lý lỗi
+      // Xử lý lỗi từ data.js (email đã tồn tại, sai mật khẩu,...)
       alert(error.message)
       
       // Reset nút bấm VÀ trạng thái loading ngay lập tức khi có lỗi
       resetButtonState(submitButton, isLogin);
-
-    } 
-    // KHÔNG DÙNG khối finally ở đây vì nó sẽ reset nút bấm trước khi chuyển hướng thành công
+    }
   })
 }
 
