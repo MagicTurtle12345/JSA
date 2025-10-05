@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delicious Cooking - Công Thức Nấu Ăn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style1.css  ">
 </head>
 <body>
-     Navigation 
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -27,7 +27,6 @@
         </div>
     </nav>
 
-     Page Header 
     <section class="page-header">
         <div class="container">
             <h1>Công Thức Nấu Ăn</h1>
@@ -35,7 +34,6 @@
         </div>
     </section>
 
-     Recipe Controls 
     <section class="recipe-controls">
         <div class="container">
             <div class="controls-wrapper">
@@ -47,7 +45,7 @@
                     
                     <div class="filter-options">
                         <select id="categoryFilter">
-                            <option value="">Tất cả danh mục</option>
+                            <option value="all">Tất cả danh mục</option>
                             <option value="appetizer">Khai vị</option>
                             <option value="main">Món chính</option>
                             <option value="dessert">Tráng miệng</option>
@@ -56,35 +54,40 @@
                         </select>
                         
                         <select id="difficultyFilter">
-                            <option value="">Tất cả độ khó</option>
+                            <option value="all">Tất cả độ khó</option>
                             <option value="easy">Dễ</option>
                             <option value="medium">Trung bình</option>
                             <option value="hard">Khó</option>
                         </select>
                         
                         <select id="timeFilter">
-                            <option value="">Thời gian nấu</option>
+                            <option value="0">Thời gian nấu</option>
                             <option value="15">Dưới 15 phút</option>
                             <option value="30">Dưới 30 phút</option>
                             <option value="60">Dưới 1 giờ</option>
                             <option value="120">Trên 1 giờ</option>
+                        </select>
+                        
+                        <select id="authorFilter">
+                            <option value="all">Tất cả tác giả</option>
+                            <option value="user">Của tôi</option>
+                            <option value="default">Mặc định</option>
                         </select>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
                     <button id="addRecipeBtn" class="btn-primary">
-                        ➕ Thêm Công Thức
+                        <i class="fas fa-plus"></i> Thêm Công Thức
                     </button>
                     <button id="viewModeBtn" class="btn-secondary">
-                        📋 Chế độ xem
+                        <i class="fas fa-list"></i> Dạng danh sách
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-     Recipe Stats 
     <section class="recipe-stats">
         <div class="container">
             <div class="stats-grid">
@@ -108,19 +111,17 @@
         </div>
     </section>
 
-     Recipe Grid 
     <section class="recipes-section">
         <div class="container">
             <div id="recipesGrid" class="recipes-grid">
-                 Recipes will be loaded here by JavaScript 
-            </div>
+                </div>
             
-            <div id="noRecipes" class="no-recipes" style="display: none;">
+            <div id="emptyState" class="no-recipes" style="display: none;">
                 <div class="no-recipes-content">
                     <div class="no-recipes-icon">🍽️</div>
                     <h3>Không tìm thấy công thức nào</h3>
                     <p>Hãy thử thay đổi bộ lọc hoặc thêm công thức mới!</p>
-                    <button id="addFirstRecipe" class="btn-primary">Thêm Công Thức Đầu Tiên</button>
+                    <button id="firstRecipeBtn" class="btn-primary">Thêm Công Thức Đầu Tiên</button>
                 </div>
             </div>
             
@@ -131,7 +132,6 @@
         </div>
     </section>
 
-     Add Recipe Modal 
     <div id="addRecipeModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,9 +149,8 @@
                     <div class="form-group">
                         <label for="recipeCategory">Danh mục *</label>
                         <select id="recipeCategory" name="category" required>
-                            <option value="">Chọn danh mục</option>
-                            <option value="appetizer">Khai vị</option>
                             <option value="main">Món chính</option>
+                            <option value="appetizer">Khai vị</option>
                             <option value="dessert">Tráng miệng</option>
                             <option value="drink">Đồ uống</option>
                             <option value="soup">Canh/Súp</option>
@@ -163,7 +162,6 @@
                     <div class="form-group">
                         <label for="recipeDifficulty">Độ khó *</label>
                         <select id="recipeDifficulty" name="difficulty" required>
-                            <option value="">Chọn độ khó</option>
                             <option value="easy">Dễ</option>
                             <option value="medium">Trung bình</option>
                             <option value="hard">Khó</option>
@@ -209,13 +207,12 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn-secondary" id="cancelRecipe">Hủy</button>
-                    <button type="submit" class="btn-primary">Thêm Công Thức</button>
+                    <button type="submit" class="btn-primary" id="submitRecipeBtn">Thêm Công Thức</button>
                 </div>
             </form>
         </div>
     </div>
 
-     Recipe Detail Modal 
     <div id="recipeDetailModal" class="modal">
         <div class="modal-content large">
             <div class="modal-header">
@@ -282,7 +279,6 @@
         </div>
     </div>
 
-     Footer 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -319,6 +315,6 @@
         </div>
     </footer>
 
-    <script src="recipes.js"></script>
+    <script src="assets/js/recipes.js"></script>
 </body>
 </html>
