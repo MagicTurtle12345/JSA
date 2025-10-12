@@ -381,3 +381,22 @@ body {
     left: 100%;
   }
 }
+/* Custom CSS cho tính năng hiện/ẩn mật khẩu */
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%; /* Đặt icon giữa chiều cao của form-group */
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--muted-foreground, #718096); /* Màu xám mờ */
+    font-size: 1rem;
+}
+
+/* Điều chỉnh vị trí của icon mắt nếu error-message xuất hiện, nếu cần */
+.form-group input[type="password"] {
+    padding-right: 40px; /* Thêm padding để không che icon */
+}

@@ -385,3 +385,41 @@ window.AuthValidation = {
   hideError,
   showSuccess,
 }
+// assets/js/validation.js
+
+// ... (Các hàm và biến hiện có)
+
+/**
+ * Thiết lập chức năng bật/tắt hiển thị mật khẩu.
+ */
+function setupPasswordToggle() {
+    const toggleButtons = $$(".toggle-password");
+
+    toggleButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const targetId = button.dataset.target;
+            const passwordInput = $(`#${targetId}`);
+
+            // 1. Chuyển đổi loại input (text/password)
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+
+            // 2. Chuyển đổi icon (eye/eye-slash)
+            button.classList.toggle("fa-eye");
+            button.classList.toggle("fa-eye-slash");
+        });
+    });
+}
+
+
+// ... (Đoạn mã hiện có trong document.addEventListener("DOMContentLoaded", ...))
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupRealTimeValidation()
+  
+  // GỌI HÀM MỚI Ở ĐÂY
+  setupPasswordToggle() 
+
+  // Setup form handlers
+  // ... (Phần còn lại giữ nguyên)
+});

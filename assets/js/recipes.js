@@ -5,30 +5,30 @@ const defaultRecipes = [
     {
         id: 1,
         name: "Phở Bò Truyền Thống",
-        category: "main",
-        difficulty: "medium",
+        category: "Món chính", // Đã sửa category để hiển thị đẹp hơn
+        difficulty: "Trung bình",
         time: 180,
         servings: 4,
         description: "Món ăn quốc hồn quốc túy của Việt Nam với nước dùng đậm đà, thịt bò mềm và hương thơm của các loại gia vị.",
-        ingredients: ["Xương bò", "Thịt bò nạm/tái", "Bánh phở", "Gừng, hành tây", "Hoa hồi, quế, thảo quả", "Rau thơm, chanh, ớt"],
-        instructions: ["Ninh xương bò lấy nước dùng (tối thiểu 3 tiếng)", "Rang gừng, hành, gia vị", "Cho gừng, hành, gia vị vào nước dùng, nêm nếm", "Chần bánh phở", "Xếp bánh phở, thịt bò vào tô, chan nước dùng nóng", "Ăn kèm rau thơm."],
+        ingredients: ["Xương bò (1kg)", "Thịt bò nạm/tái (300g)", "Bánh phở (1kg)", "Gừng, hành tây (1 củ)", "Hoa hồi, quế, thảo quả (một ít)", "Rau thơm, chanh, ớt"],
+        instructions: ["Ninh xương bò lấy nước dùng (tối thiểu 3 tiếng)", "Rang gừng, hành, gia vị, sau đó cho vào nồi nước dùng", "Nêm nếm gia vị cho nước dùng vừa ăn", "Chần bánh phở qua nước sôi", "Xếp bánh phở, thịt bò vào tô, chan nước dùng nóng", "Ăn kèm rau thơm, chanh, ớt."],
         image: "assets/images/pho-bo.jpg", // Giả định có ảnh
-        tags: ["Việt Nam", "Món chính", "Truyền thống"],
+        tags: ["Việt Nam", "Món chính", "Truyền thống", "Phở"],
         author: "Default",
         createdAt: "2024-01-10T10:00:00Z",
     },
     {
         id: 2,
         name: "Bánh Mì Kẹp Thịt Nướng",
-        category: "appetizer",
-        difficulty: "easy",
+        category: "Ăn nhẹ",
+        difficulty: "Dễ",
         time: 45,
         servings: 2,
         description: "Món ăn đường phố nổi tiếng thế giới, kết hợp hài hòa giữa vị mặn của thịt nướng, chua ngọt của đồ chua và giòn tan của bánh mì.",
-        ingredients: ["Thịt heo ba chỉ", "Bánh mì", "Đồ chua (cà rốt, củ cải)", "Pate", "Rau mùi, ớt", "Nước sốt ướp thịt"],
-        instructions: ["Ướp thịt, nướng chín", "Chuẩn bị đồ chua", "Xẻ bánh mì, phết pate", "Kẹp thịt, đồ chua, rau mùi, ớt vào bánh mì"],
+        ingredients: ["Thịt heo ba chỉ (200g)", "Bánh mì (2 ổ)", "Đồ chua (cà rốt, củ cải)", "Pate", "Rau mùi, ớt", "Nước sốt ướp thịt"],
+        instructions: ["Ướp thịt với gia vị, nướng chín (hoặc chiên)", "Cắt bánh mì dọc theo chiều dài, phết pate", "Kẹp thịt nướng, đồ chua, rau mùi và ớt vào bánh mì."],
         image: "assets/images/banh-mi.jpg", // Giả định có ảnh
-        tags: ["Việt Nam", "Ăn nhẹ", "Đường phố"],
+        tags: ["Việt Nam", "Ăn nhẹ", "Đường phố", "Thịt heo"],
         author: "Default",
         createdAt: "2024-05-20T15:30:00Z",
     },
@@ -48,7 +48,7 @@ class RecipeManager {
         this.loadData();
         this.loadDefaultRecipes();
         this.setupEventListeners();
-        this.filterRecipes(); // Gọi filterRecipes thay vì renderRecipes để hiển thị tất cả ban đầu
+        this.filterRecipes(); 
         this.updateStats();
     }
 
@@ -72,34 +72,31 @@ class RecipeManager {
     loadDefaultRecipes() {
         if (this.recipes.length === 0) {
             this.recipes = defaultRecipes;
-            this.saveData(); // Lưu dữ liệu mẫu vào localStorage lần đầu
+            this.saveData(); 
         }
     }
 
     // ===============================================
-    // CÁC HÀM XỬ LÝ MODAL (ĐÃ THÊM/SỬA)
+    // CÁC HÀM XỬ LÝ MODAL THÊM/SỬA
     // ===============================================
 
     showAddRecipeModal(recipe = null) {
         const modal = document.getElementById("addRecipeModal");
         const form = document.getElementById("addRecipeForm");
         
-        // Đảm bảo modal được hiển thị và form được reset
         form.reset();
         form.dataset.editId = "";
         document.querySelector("#addRecipeModal h2").textContent = "Thêm Công Thức Mới";
         document.getElementById("submitRecipeBtn").textContent = "➕ Thêm Công Thức";
 
         if (recipe) {
-            // Nếu đang chỉnh sửa
             document.querySelector("#addRecipeModal h2").textContent = "Chỉnh Sửa Công Thức";
             document.getElementById("submitRecipeBtn").textContent = "💾 Cập Nhật Công Thức";
             form.dataset.editId = recipe.id;
             
-            // Điền dữ liệu vào form
             document.getElementById("recipeName").value = recipe.name || '';
-            document.getElementById("recipeCategory").value = recipe.category || 'main';
-            document.getElementById("recipeDifficulty").value = recipe.difficulty || 'easy';
+            document.getElementById("recipeCategory").value = recipe.category || 'Món chính';
+            document.getElementById("recipeDifficulty").value = recipe.difficulty || 'Dễ';
             document.getElementById("recipeTime").value = recipe.time || 30;
             document.getElementById("recipeServings").value = recipe.servings || 4;
             document.getElementById("recipeDescription").value = recipe.description || '';
@@ -121,24 +118,113 @@ class RecipeManager {
         form.dataset.editId = "";
     }
 
-
     // ===============================================
-    // HÀM XỬ LÝ FORM SUBMIT (ĐÃ SỬA LỖI EVENT)
+    // CÁC HÀM XỬ LÝ MODAL CHI TIẾT CÔNG THỨC (MỚI)
     // ===============================================
 
     /**
-     * Xử lý việc thêm hoặc cập nhật công thức khi form được gửi.
-     * @param {Event} event - Sự kiện submit form.
+     * Hiển thị modal chi tiết công thức và điền dữ liệu.
+     * @param {number} id - ID của công thức.
      */
+    showRecipeDetailModal(id) {
+        const recipeId = Number(id);
+        const recipe = this.recipes.find(r => r.id === recipeId);
+
+        if (!recipe) {
+            alert("Không tìm thấy công thức!");
+            return;
+        }
+
+        const modal = document.getElementById("recipeDetailModal");
+        // Giả định công thức không phải mặc định là của user
+        const isOwner = recipe.author !== "Default"; 
+
+        // 1. Điền thông tin cơ bản
+        document.getElementById("detailRecipeName").textContent = recipe.name;
+        document.getElementById("detailRecipeImage").src = recipe.image || 'assets/images/default-recipe.jpg';
+
+        // 2. Điền Meta
+        document.getElementById("detailRecipeCategory").textContent = recipe.category;
+        document.getElementById("detailRecipeDifficulty").textContent = recipe.difficulty;
+        document.getElementById("detailRecipeTime").textContent = `${recipe.time} phút`;
+        document.getElementById("detailRecipeServings").textContent = `${recipe.servings} phần`;
+        document.getElementById("detailRecipeDescription").textContent = recipe.description;
+        
+        // Thêm thông tin tác giả và ngày tạo
+        const date = new Date(recipe.createdAt).toLocaleDateString('vi-VN');
+        const authorElement = document.getElementById("detailRecipeAuthor");
+        if (authorElement) authorElement.textContent = `Tác giả: ${recipe.author} | Ngày tạo: ${date}`;
+
+
+        // 3. Điền Nguyên liệu (Ingredients)
+        const ingredientsList = document.getElementById("detailRecipeIngredients");
+        // Sử dụng các item list với icon 
+        ingredientsList.innerHTML = recipe.ingredients.map(ing => `<li><i class="fas fa-check-circle ingredient-icon"></i> ${ing}</li>`).join('');
+
+        // 4. Điền Hướng dẫn (Instructions)
+        const instructionsList = document.getElementById("detailRecipeInstructions");
+        // Sử dụng ordered list (số thứ tự)
+        instructionsList.innerHTML = recipe.instructions.map(inst => `<li>${inst}</li>`).join('');
+        
+        // 5. Điền Tags
+        const tagsContainer = document.querySelector("#detailRecipeTags .tags-container");
+        const tagsSection = document.getElementById("detailRecipeTags");
+        if (recipe.tags && recipe.tags.length > 0) {
+            tagsContainer.innerHTML = recipe.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            tagsSection.style.display = 'block';
+        } else {
+            tagsSection.style.display = 'none';
+        }
+
+        // 6. Cập nhật nút Yêu thích
+        const favoriteBtn = document.getElementById("favoriteBtn");
+        const isFavorite = this.favorites.has(recipeId);
+        favoriteBtn.innerHTML = isFavorite ? '<span class="heart">❤️</span> Bỏ yêu thích' : '<span class="heart">♡</span> Yêu thích';
+        
+        // Gán sự kiện Yêu thích ngay trong hàm này
+        favoriteBtn.onclick = (e) => { 
+            e.stopPropagation();
+            this.toggleFavorite(recipeId);
+            // Cập nhật trạng thái icon ngay lập tức trong modal
+            const isFav = this.favorites.has(recipeId);
+            favoriteBtn.innerHTML = isFav ? '<span class="heart">❤️</span> Bỏ yêu thích' : '<span class="heart">♡</span> Yêu thích';
+            // Cập nhật luôn thẻ công thức
+            this.filterRecipes(); 
+        };
+
+        // 7. Cập nhật nút Chỉnh sửa/Xóa (chỉ hiện khi là công thức của user)
+        const editBtn = document.getElementById("editRecipeBtn");
+        const deleteBtn = document.getElementById("deleteRecipeBtn");
+        
+        if (isOwner) {
+            editBtn.style.display = 'inline-block';
+            deleteBtn.style.display = 'inline-block';
+            editBtn.onclick = () => { this.hideRecipeDetailModal(); this.editRecipe(recipeId); };
+            deleteBtn.onclick = () => { this.hideRecipeDetailModal(); this.deleteRecipe(recipeId); };
+        } else {
+            editBtn.style.display = 'none';
+            deleteBtn.style.display = 'none';
+        }
+
+        // 8. Hiển thị modal
+        modal.style.display = "block";
+    }
+
+    hideRecipeDetailModal() {
+        document.getElementById("recipeDetailModal").style.display = "none";
+    }
+
+    // ===============================================
+    // HÀM XỬ LÝ FORM SUBMIT (GIỮ NGUYÊN)
+    // ===============================================
+
     handleAddRecipe(event) {
-        // RẤT QUAN TRỌNG: NGĂN CHẶN TẢI LẠI TRANG
         event.preventDefault(); 
 
         const form = document.getElementById("addRecipeForm");
         const formData = new FormData(form);
         const editId = form.dataset.editId;
 
-        // Lấy giá trị từ form
         const name = formData.get("name").trim();
         const category = formData.get("category");
         const difficulty = formData.get("difficulty");
@@ -146,19 +232,15 @@ class RecipeManager {
         const servings = Number.parseInt(formData.get("servings")) || 1;
         const description = formData.get("description").trim();
         
-        // Xử lý Ingredients và Instructions (Tách chuỗi bằng dấu xuống dòng)
         const ingredients = formData.get("ingredients").split('\n').map(item => item.trim()).filter(item => item.length > 0);
         const instructions = formData.get("instructions").split('\n').map(item => item.trim()).filter(item => item.length > 0);
         
-        const image = formData.get("image").trim() || "assets/images/default-recipe.jpg"; // Default image placeholder
+        const image = formData.get("image").trim() || "assets/images/default-recipe.jpg"; 
         
-        // Xử lý Tags (Tách chuỗi bằng dấu phẩy)
         const tagsInput = formData.get("tags");
         const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0) : [];
         
-        // Lấy thông tin người dùng từ LocalStorage
         const user = JSON.parse(localStorage.getItem('user'));
-        // Sử dụng tên người dùng đã đăng nhập hoặc "Người đóng góp"
         const author = user ? user.name : "Người đóng góp"; 
 
         const newRecipe = {
@@ -177,34 +259,25 @@ class RecipeManager {
         };
 
         if (editId) {
-            // CẬP NHẬT CÔNG THỨC
             const idToEdit = Number(editId);
             const index = this.recipes.findIndex(r => r.id === idToEdit);
             if (index !== -1) {
-                // Giữ lại các thuộc tính cũ như ID, author
                 this.recipes[index] = { ...this.recipes[index], ...newRecipe, id: idToEdit }; 
             }
             alert("Công thức đã được cập nhật!");
         } else {
-            // THÊM CÔNG THỨC MỚI
-            // Tạo ID mới duy nhất
             newRecipe.id = Date.now() + Math.floor(Math.random() * 1000); 
             this.recipes.unshift(newRecipe);
             alert("Công thức mới đã được thêm!");
         }
 
-        // LƯU DỮ LIỆU VÀO LOCAL STORAGE
         this.saveData(); 
-        
-        // HIỂN THỊ LẠI DANH SÁCH & ẨN MODAL
         this.filterRecipes();
         this.hideAddRecipeModal();
     }
     
-    // ... (Hàm createRecipeCard, updateStats, filterRecipes, v.v. giữ nguyên)
-    
     // ===============================================
-    // HÀM LẮNG NGHE SỰ KIỆN (ĐÃ SỬA LỖI GẮN SỰ KIỆN)
+    // HÀM LẮNG NGHE SỰ KIỆN (ĐÃ CẬP NHẬT)
     // ===============================================
 
     setupEventListeners() {
@@ -223,28 +296,47 @@ class RecipeManager {
         // Form Submit
         const addRecipeForm = document.getElementById("addRecipeForm");
         if (addRecipeForm) {
-            // Gắn sự kiện submit form để gọi hàm handleAddRecipe
             addRecipeForm.addEventListener("submit", (e) => this.handleAddRecipe(e));
         }
 
-        // Đóng Modal
-        const modal = document.getElementById("addRecipeModal");
-        if (modal) {
-            const closeModalBtn = modal.querySelector(".modal-close");
+        // Đóng Modal Thêm/Sửa
+        const addModal = document.getElementById("addRecipeModal");
+        if (addModal) {
+            const closeModalBtn = addModal.querySelector(".modal-close");
             const cancelBtn = document.getElementById("cancelRecipe");
             
             if (closeModalBtn) closeModalBtn.addEventListener("click", () => this.hideAddRecipeModal());
             if (cancelBtn) cancelBtn.addEventListener("click", () => this.hideAddRecipeModal());
             
-            // Đóng khi click ra ngoài
             window.addEventListener('click', (event) => {
-                if (event.target === modal) {
+                if (event.target === addModal) {
                     this.hideAddRecipeModal();
                 }
             });
         }
         
-        // Event Listeners cho bộ lọc (Giả định bạn đã có các ID này trong HTML)
+        // Lắng nghe sự kiện đóng Modal Chi tiết (MỚI)
+        const detailModal = document.getElementById("recipeDetailModal");
+        if (detailModal) {
+            const closeModalBtn = detailModal.querySelector(".modal-close");
+            
+            if (closeModalBtn) closeModalBtn.addEventListener("click", () => this.hideRecipeDetailModal());
+            
+            // Đóng khi click ra ngoài
+            window.addEventListener('click', (event) => {
+                if (event.target === detailModal) {
+                    this.hideRecipeDetailModal();
+                }
+            });
+            
+            // Lắng nghe nút Print
+            const printBtn = document.getElementById("printBtn");
+            if (printBtn) {
+                printBtn.addEventListener('click', () => window.print());
+            }
+        }
+
+        // Event Listeners cho bộ lọc (Giữ nguyên)
         document.getElementById("searchInput")?.addEventListener("input", () => this.filterRecipes());
         document.getElementById("categoryFilter")?.addEventListener("change", () => this.filterRecipes());
         document.getElementById("difficultyFilter")?.addEventListener("change", () => this.filterRecipes());
@@ -257,32 +349,10 @@ class RecipeManager {
     }
     
     // ===============================================
-    // CÁC HÀM CÒN LẠI (GIỮ NGUYÊN HOẶC BỔ SUNG LOGIC)
+    // CÁC HÀM KHÁC (ĐÃ CẬP NHẬT)
     // ===============================================
-
-    renderRecipes(recipesToRender = this.recipes) {
-        const recipesGrid = document.getElementById("recipesGrid");
-        const emptyState = document.getElementById("emptyState");
-        recipesGrid.innerHTML = "";
-        
-        if (recipesToRender.length === 0) {
-            recipesGrid.style.display = 'none';
-            emptyState.style.display = 'block';
-            document.getElementById("filteredCount").textContent = 0;
-            return;
-        }
-
-        recipesGrid.style.display = this.currentView === 'grid' ? 'grid' : 'block';
-        emptyState.style.display = 'none';
-
-        recipesToRender.forEach(recipe => {
-            const card = this.createRecipeCard(recipe);
-            recipesGrid.appendChild(card);
-        });
-
-        document.getElementById("filteredCount").textContent = recipesToRender.length;
-    }
-
+    
+    // CẬP NHẬT: Thêm sự kiện mở modal chi tiết
     createRecipeCard(recipe) {
         const isFavorite = this.favorites.has(recipe.id);
         
@@ -294,7 +364,7 @@ class RecipeManager {
 
         card.innerHTML = `
             <div class="recipe-image-section">
-                <img src="${recipe.image}" alt="${recipe.name}">
+                <img src="${recipe.image || 'assets/images/default-recipe.jpg'}" alt="${recipe.name}">
                 <button class="favorite-btn" data-id="${recipe.id}"><i class="${starClass}"></i></button>
             </div>
             <div class="recipe-content">
@@ -315,7 +385,7 @@ class RecipeManager {
         
         // Gắn sự kiện cho nút Yêu thích
         card.querySelector('.favorite-btn').addEventListener('click', (e) => {
-            e.stopPropagation(); // Ngăn sự kiện lan truyền
+            e.stopPropagation(); 
             this.toggleFavorite(recipe.id);
         });
         
@@ -331,17 +401,47 @@ class RecipeManager {
             this.editRecipe(recipe.id);
         });
 
-        // Gắn sự kiện cho Xem chi tiết
+        // Gắn sự kiện cho Xem chi tiết (MỚI)
         card.querySelector('.view-details-btn')?.addEventListener('click', (e) => {
             e.stopPropagation();
-            // Tạm thời chỉ alert, sau này có thể mở modal chi tiết
-            alert(`Xem chi tiết công thức: ${recipe.name}`);
+            this.showRecipeDetailModal(recipe.id);
         });
 
         return card;
     }
 
+    renderRecipes(recipesToRender = this.recipes) {
+        const recipesGrid = document.getElementById("recipesGrid");
+        const emptyState = document.getElementById("emptyState");
+        recipesGrid.innerHTML = "";
+        
+        if (recipesToRender.length === 0) {
+            recipesGrid.style.display = 'none';
+            emptyState.style.display = 'block';
+            document.getElementById("filteredRecipes").textContent = 0;
+            return;
+        }
+
+        // Giữ lại logic CSS list-mode
+        recipesGrid.style.display = this.currentView === 'grid' ? 'grid' : 'block';
+        if (this.currentView === 'list') {
+             recipesGrid.classList.add("list-mode");
+        } else {
+             recipesGrid.classList.remove("list-mode");
+        }
+        
+        emptyState.style.display = 'none';
+
+        recipesToRender.forEach(recipe => {
+            const card = this.createRecipeCard(recipe);
+            recipesGrid.appendChild(card);
+        });
+
+        document.getElementById("filteredRecipes").textContent = recipesToRender.length;
+    }
+
     filterRecipes() {
+        // ... (Logic giữ nguyên)
         const searchTerm = document.getElementById("searchInput")?.value.toLowerCase() || "";
         const category = document.getElementById("categoryFilter")?.value || "all";
         const difficulty = document.getElementById("difficultyFilter")?.value || "all";
@@ -349,22 +449,16 @@ class RecipeManager {
         const author = document.getElementById("authorFilter")?.value || "all";
 
         this.filteredRecipes = this.recipes.filter(recipe => {
-            // Lọc theo từ khóa
             const matchesSearch = !searchTerm || 
                                   recipe.name.toLowerCase().includes(searchTerm) || 
                                   recipe.description.toLowerCase().includes(searchTerm) ||
                                   (recipe.tags && recipe.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
 
-            // Lọc theo danh mục
             const matchesCategory = category === "all" || recipe.category === category;
-            
-            // Lọc theo độ khó
             const matchesDifficulty = difficulty === "all" || recipe.difficulty === difficulty;
 
-            // Lọc theo thời gian
             const matchesTime = time === 0 || recipe.time <= time;
             
-            // Lọc theo tác giả (ví dụ: chỉ công thức của User)
             const matchesAuthor = author === "all" || (author === "user" && recipe.author !== "Default") || (author === "default" && recipe.author === "Default");
 
 
@@ -383,7 +477,7 @@ class RecipeManager {
             this.favorites.add(recipeId);
         }
         this.saveData();
-        this.filterRecipes(); // Re-render để cập nhật icon
+        this.filterRecipes(); 
         this.updateStats();
     }
     
@@ -399,7 +493,7 @@ class RecipeManager {
         const recipeId = Number(id);
         if (confirm("Bạn có chắc chắn muốn xóa công thức này?")) {
             this.recipes = this.recipes.filter(r => r.id !== recipeId);
-            this.favorites.delete(recipeId); // Xóa khỏi danh sách yêu thích nếu có
+            this.favorites.delete(recipeId); 
             this.saveData();
             this.filterRecipes();
             this.updateStats();
@@ -413,7 +507,7 @@ class RecipeManager {
 
         if (this.currentView === "grid") {
             this.currentView = "list"
-            recipesGrid.classList.add("list-mode") // Sử dụng class thay vì style trực tiếp
+            recipesGrid.classList.add("list-mode")
             viewModeBtn.innerHTML = '<i class="fas fa-th-large"></i> Dạng lưới'
         } else {
             this.currentView = "grid"
@@ -421,16 +515,15 @@ class RecipeManager {
             viewModeBtn.innerHTML = '<i class="fas fa-list"></i> Dạng danh sách'
         }
         
-        // Render lại để áp dụng class mới
         this.renderRecipes(this.filteredRecipes); 
     }
 
     updateStats() {
-        // Cập nhật các thống kê trên sidebar
         const totalRecipes = this.recipes.length
         const userRecipes = this.recipes.filter((recipe) => recipe.author !== "Default").length
         const favoriteRecipes = this.favorites.size
-        const filteredRecipes = this.filteredRecipes.length
+        // Đã sử dụng ID filteredRecipes
+        const filteredRecipes = this.filteredRecipes.length 
 
         document.getElementById("totalRecipes").textContent = totalRecipes
         document.getElementById("userRecipes").textContent = userRecipes
