@@ -33,7 +33,9 @@ const defaultRecipes = [
         createdAt: "2024-05-20T15:30:00Z",
     },
 ];
-
+if (!localStorage.getItem("DefaultRecipes")==null) {
+    localStorage.setItem("recipes", JSON.stringify(defaultRecipes));
+}
 // Recipe management system
 class RecipeManager {
     constructor() {

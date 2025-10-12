@@ -1919,3 +1919,238 @@ body {
     transition: none;
   }
 }
+/* =============================================== */
+/* CSS CHO MODAL XEM CHI TIẾT CÔNG THỨC (recipeDetailModal) */
+/* =============================================== */
+
+/* Modal Container (Áp dụng cho cả thêm/sửa và chi tiết) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; /* Cao hơn navbar */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); /* Nền tối */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 3% auto; /* Đặt modal gần phía trên hơn */
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%; 
+    max-width: 900px; /* Giới hạn chiều rộng tối đa */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+/* Modal Header/Title */
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2c5530;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+}
+
+/* Nút Đóng Modal */
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    transition: color 0.2s;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* =============================================== */
+/* STYLE RIÊNG CHO MODAL CHI TIẾT CÔNG THỨC */
+/* =============================================== */
+
+#recipeDetailModal .detail-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#detailRecipeImage {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#detailRecipeName {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #2f855a;
+    margin-bottom: 10px;
+}
+
+.recipe-meta-details {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.meta-detail-item {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--foreground);
+}
+
+.meta-detail-item i {
+    color: var(--accent); /* Màu vàng ấm cho icon */
+    margin-right: 5px;
+}
+
+/* Nội dung chính */
+.detail-section h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--border);
+}
+
+/* Danh sách Nguyên liệu */
+#detailRecipeIngredients {
+    list-style: none;
+    padding: 0;
+    columns: 1; /* Hiển thị 1 cột trên mobile */
+    column-gap: 30px;
+}
+
+#detailRecipeIngredients li {
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--muted-foreground);
+    display: flex;
+    align-items: center;
+}
+
+.ingredient-icon {
+    color: var(--primary); /* Màu xanh lá cho icon check */
+    margin-right: 8px;
+}
+
+/* Danh sách Hướng dẫn */
+#detailRecipeInstructions {
+    list-style: none;
+    counter-reset: instruction-counter;
+    padding-left: 0;
+}
+
+#detailRecipeInstructions li {
+    counter-increment: instruction-counter;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.4;
+}
+
+#detailRecipeInstructions li::before {
+    content: counter(instruction-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--primary);
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Tags */
+#detailRecipeTags {
+    margin-top: 30px;
+}
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tags-container .tag {
+    background-color: var(--muted);
+    color: var(--foreground);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+/* Action Buttons */
+.detail-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.detail-actions button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    #detailRecipeIngredients {
+        columns: 2; /* 2 cột trên màn hình lớn */
+    }
+}
+@media (max-width: 600px) {
+    .modal-content {
+        margin: 5% auto;
+        padding: 20px;
+    }
+    #detailRecipeName {
+        font-size: 2rem;
+    }
+    .recipe-meta-details {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .meta-detail-item {
+        flex-basis: 45%; /* 2 cột trên mobile */
+    }
+    .detail-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .detail-actions button {
+        width: 100%;
+    }
+}
