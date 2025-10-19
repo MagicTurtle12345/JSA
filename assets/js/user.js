@@ -1,9 +1,7 @@
-// assets/js/user.js
 
 const SESSION_USER_KEY = 'user'; // Khóa lưu thông tin user đang đăng nhập (từ validation.js)
 const REGISTERED_USERS_KEY = 'registeredUsers'; // Khóa lưu danh sách tất cả user (từ data.js)
 
-// --- Utility Functions ---
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -26,7 +24,6 @@ function saveSessionUser(user) {
 
 /**
  * Cập nhật thông tin người dùng trong danh sách người dùng đã đăng ký (RegisteredUsers).
- * Điều này mô phỏng việc lưu vào cơ sở dữ liệu.
  * @param {Object} updatedUser - Thông tin người dùng đã cập nhật.
  */
 function updateRegisteredUser(updatedUser) {
@@ -35,11 +32,9 @@ function updateRegisteredUser(updatedUser) {
 
     const index = users.findIndex(u => u.id === updatedUser.id);
     if (index !== -1) {
-        // Chỉ cập nhật các trường được phép
         users[index].name = updatedUser.name;
         users[index].phone = updatedUser.phone;
         users[index].avatar = updatedUser.avatar;
-        // ... nếu bạn muốn cập nhật mật khẩu, sẽ cần xử lý tại hàm đổi mật khẩu
         
         localStorage.setItem(REGISTERED_USERS_KEY, JSON.stringify(users));
         return true;
@@ -48,7 +43,7 @@ function updateRegisteredUser(updatedUser) {
 }
 
 /**
- * Hiển thị thông báo (tương tự như alert của form đăng nhập/đăng ký)
+ * Hiển thị thông báo
  */
 function showAlert(elementId, message, isSuccess = false) {
     const alertDiv = $(elementId);
@@ -61,7 +56,6 @@ function showAlert(elementId, message, isSuccess = false) {
     }, 4000);
 }
 
-// --- Core Logic ---
 
 class ProfileManager {
     constructor() {
@@ -78,7 +72,6 @@ class ProfileManager {
     checkAuth() {
         if (!this.currentUser) {
             alert('Vui lòng đăng nhập để xem trang hồ sơ.');
-            // Giả định trang đăng nhập là login.html
             window.location.href = 'login.html'; 
         }
     }
@@ -110,7 +103,6 @@ class ProfileManager {
     }
 
     /**
-     * Thiết lập logic chuyển đổi giữa các tab.
      */
     setupTabSwitching() {
         const tabButtons = document.querySelectorAll('.tab-button');
@@ -162,7 +154,7 @@ class ProfileManager {
     }
     
     /**
-     * Xử lý sự kiện form đổi mật khẩu (Mocked).
+     * Xử lý sự kiện form đổi mật khẩu 
      */
     handleChangePassword(event) {
         event.preventDefault();
@@ -171,8 +163,7 @@ class ProfileManager {
         const newPassword = $('#newPassword').value;
         const confirmNewPassword = $('#confirmNewPassword').value;
 
-        // 1. Kiểm tra mật khẩu hiện tại (Mock)
-        // Trong ứng dụng thực, mật khẩu hiện tại phải được gửi lên server để xác minh
+        // 1. Kiểm tra mật khẩu hiện tại 
         if (currentPassword !== this.currentUser.password) {
             showAlert('#change-password-alert', 'Mật khẩu hiện tại không đúng.', false);
             return;
@@ -184,7 +175,7 @@ class ProfileManager {
             return;
         }
         
-        // 3. Kiểm tra độ mạnh mật khẩu (Nên dùng logic từ validation.js)
+        // 3. Kiểm tra độ mạnh mật khẩu 
         if (newPassword.length < 8) {
             showAlert('#change-password-alert', 'Mật khẩu phải có ít nhất 8 ký tự.', false);
             return;
@@ -195,7 +186,6 @@ class ProfileManager {
         this.currentUser.password = newPassword; 
         saveSessionUser(this.currentUser); 
         
-        // Trong môi trường thực: Cập nhật cả trong RegisteredUsers (nếu bạn có hàm update password riêng)
 
         // Xóa form và thông báo thành công
         $('#changePasswordForm').reset();
@@ -214,7 +204,6 @@ class ProfileManager {
     }
 
     /**
-     * Thiết lập tất cả các Event Listener.
      */
     setupEventListeners() {
         // Nút Đăng xuất

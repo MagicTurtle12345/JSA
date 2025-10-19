@@ -1,5 +1,4 @@
 
-// Utility functions
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
@@ -385,9 +384,7 @@ window.AuthValidation = {
   hideError,
   showSuccess,
 }
-// assets/js/validation.js
 
-// ... (Các hàm và biến hiện có)
 
 /**
  * Thiết lập chức năng bật/tắt hiển thị mật khẩu.

@@ -1,4 +1,3 @@
-// assets/js/data.js
 
 const USER_STORAGE_KEY = 'registeredUsers';
 

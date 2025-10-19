@@ -400,3 +400,77 @@ body {
 .form-group input[type="password"] {
     padding-right: 40px; /* Thêm padding để không che icon */
 }
+/* =============================================== */
+/* CSS SỬA LỖI HIỂN THỊ CÁC NÚT LỌC (Filter/Category Buttons) */
+/* =============================================== */
+
+/* Container chứa tất cả các nút lọc/Category */
+.filter-controls {
+    display: flex; /* Bật Flexbox */
+    flex-wrap: wrap; /* Cho phép các nút xuống dòng nếu không đủ chỗ */
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Style chung cho các nút lọc */
+.filter-btn {
+    /* Đảm bảo chúng là nút có thể nhấn */
+    padding: 8px 15px;
+    border: 1px solid var(--border);
+    border-radius: 20px; /* Làm tròn hơn */
+    background-color: var(--muted);
+    color: var(--foreground);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap; /* Quan trọng: Ngăn không cho chữ bị ngắt dòng trong nút */
+}
+
+/* Trạng thái hover/focus */
+.filter-btn:hover {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+}
+
+/* Trạng thái Active/Đã chọn */
+.filter-btn.active {
+    background-color: var(--primary);
+    color: var(--primary-foreground); /* Trắng */
+    border-color: var(--primary);
+    font-weight: 600;
+}
+
+/* Style cho các nút chức năng (nếu có, ví dụ: Nút thêm công thức) */
+.action-buttons {
+    margin-left: auto; /* Đẩy các nút chức năng về phía phải */
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .btn-primary {
+    padding: 8px 15px;
+}
+
+/* Điều chỉnh thêm cho khu vực lọc công thức tổng thể */
+.recipe-filters {
+    padding: 20px;
+    background-color: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 600px) {
+    .filter-controls {
+        justify-content: flex-start; /* Cho phép các nút căn lề trái */
+        overflow-x: auto; /* Cho phép cuộn ngang nếu có quá nhiều nút */
+        padding-bottom: 15px;
+        flex-wrap: nowrap; /* Quan trọng: Không cho các nút xuống dòng trên mobile, buộc chúng nằm trên một hàng (khi có overflow-x) */
+    }
+    
+    .recipe-filters {
+        padding: 15px;
+    }
+}

@@ -1,18 +1,16 @@
-// assets/js/recipes.js
 
-// Dữ liệu mẫu ban đầu nếu localStorage rỗng
 const defaultRecipes = [
     {
         id: 1,
         name: "Phở Bò Truyền Thống",
-        category: "Món chính", // Đã sửa category để hiển thị đẹp hơn
+        category: "Món chính", 
         difficulty: "Trung bình",
         time: 180,
         servings: 4,
         description: "Món ăn quốc hồn quốc túy của Việt Nam với nước dùng đậm đà, thịt bò mềm và hương thơm của các loại gia vị.",
         ingredients: ["Xương bò (1kg)", "Thịt bò nạm/tái (300g)", "Bánh phở (1kg)", "Gừng, hành tây (1 củ)", "Hoa hồi, quế, thảo quả (một ít)", "Rau thơm, chanh, ớt"],
         instructions: ["Ninh xương bò lấy nước dùng (tối thiểu 3 tiếng)", "Rang gừng, hành, gia vị, sau đó cho vào nồi nước dùng", "Nêm nếm gia vị cho nước dùng vừa ăn", "Chần bánh phở qua nước sôi", "Xếp bánh phở, thịt bò vào tô, chan nước dùng nóng", "Ăn kèm rau thơm, chanh, ớt."],
-        image: "assets/images/pho-bo.jpg", // Giả định có ảnh
+        image: "assets/images/food13.webp",
         tags: ["Việt Nam", "Món chính", "Truyền thống", "Phở"],
         author: "Default",
         createdAt: "2024-01-10T10:00:00Z",
@@ -27,7 +25,7 @@ const defaultRecipes = [
         description: "Món ăn đường phố nổi tiếng thế giới, kết hợp hài hòa giữa vị mặn của thịt nướng, chua ngọt của đồ chua và giòn tan của bánh mì.",
         ingredients: ["Thịt heo ba chỉ (200g)", "Bánh mì (2 ổ)", "Đồ chua (cà rốt, củ cải)", "Pate", "Rau mùi, ớt", "Nước sốt ướp thịt"],
         instructions: ["Ướp thịt với gia vị, nướng chín (hoặc chiên)", "Cắt bánh mì dọc theo chiều dài, phết pate", "Kẹp thịt nướng, đồ chua, rau mùi và ớt vào bánh mì."],
-        image: "assets/images/banh-mi.jpg", // Giả định có ảnh
+        image: "assets/images/food14.webp", 
         tags: ["Việt Nam", "Ăn nhẹ", "Đường phố", "Thịt heo"],
         author: "Default",
         createdAt: "2024-05-20T15:30:00Z",
@@ -78,9 +76,7 @@ class RecipeManager {
         }
     }
 
-    // ===============================================
-    // CÁC HÀM XỬ LÝ MODAL THÊM/SỬA
-    // ===============================================
+
 
     showAddRecipeModal(recipe = null) {
         const modal = document.getElementById("addRecipeModal");
@@ -120,12 +116,9 @@ class RecipeManager {
         form.dataset.editId = "";
     }
 
-    // ===============================================
-    // CÁC HÀM XỬ LÝ MODAL CHI TIẾT CÔNG THỨC (MỚI)
-    // ===============================================
+
 
     /**
-     * Hiển thị modal chi tiết công thức và điền dữ liệu.
      * @param {number} id - ID của công thức.
      */
     showRecipeDetailModal(id) {
@@ -138,7 +131,6 @@ class RecipeManager {
         }
 
         const modal = document.getElementById("recipeDetailModal");
-        // Giả định công thức không phải mặc định là của user
         const isOwner = recipe.author !== "Default"; 
 
         // 1. Điền thông tin cơ bản
@@ -278,9 +270,6 @@ class RecipeManager {
         this.hideAddRecipeModal();
     }
     
-    // ===============================================
-    // HÀM LẮNG NGHE SỰ KIỆN (ĐÃ CẬP NHẬT)
-    // ===============================================
 
     setupEventListeners() {
         // Nút chính "Thêm Công Thức"
@@ -350,9 +339,7 @@ class RecipeManager {
 
     }
     
-    // ===============================================
-    // CÁC HÀM KHÁC (ĐÃ CẬP NHẬT)
-    // ===============================================
+
     
     // CẬP NHẬT: Thêm sự kiện mở modal chi tiết
     createRecipeCard(recipe) {
@@ -424,7 +411,6 @@ class RecipeManager {
             return;
         }
 
-        // Giữ lại logic CSS list-mode
         recipesGrid.style.display = this.currentView === 'grid' ? 'grid' : 'block';
         if (this.currentView === 'list') {
              recipesGrid.classList.add("list-mode");
@@ -443,7 +429,6 @@ class RecipeManager {
     }
 
     filterRecipes() {
-        // ... (Logic giữ nguyên)
         const searchTerm = document.getElementById("searchInput")?.value.toLowerCase() || "";
         const category = document.getElementById("categoryFilter")?.value || "all";
         const difficulty = document.getElementById("difficultyFilter")?.value || "all";
@@ -524,7 +509,6 @@ class RecipeManager {
         const totalRecipes = this.recipes.length
         const userRecipes = this.recipes.filter((recipe) => recipe.author !== "Default").length
         const favoriteRecipes = this.favorites.size
-        // Đã sử dụng ID filteredRecipes
         const filteredRecipes = this.filteredRecipes.length 
 
         document.getElementById("totalRecipes").textContent = totalRecipes
