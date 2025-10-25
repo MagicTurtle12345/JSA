@@ -48,7 +48,7 @@ body {
   background: linear-gradient(135deg, var(--background) 50%, #f0e6d6 100%); /* Thêm gradient nhẹ */
 }
 
-/* Auth Card (Đẹp hơn) */
+/* Auth Card */
 .auth-card {
   width: 100%;
   max-width: 440px;
@@ -79,7 +79,7 @@ body {
 }
 
 .brand-name {
-    font-family: "Playfair Display", serif; /* Font chữ sang trọng cho tên thương hiệu */
+    font-family: "Playfair Display", serif;
     font-size: 1.75rem;
     font-weight: 700;
     color: var(--primary); /* Màu xanh lá cây chủ đạo */
@@ -132,7 +132,7 @@ body {
   font-size: 1rem;
 }
 
-/* Hiệu ứng focus input (Đẹp hơn) */
+/* Hiệu ứng focus input */
 .auth-form input:focus {
   border-color: var(--primary);
   outline: 2px solid var(--input-focus);
@@ -228,7 +228,7 @@ body {
   text-decoration: underline;
 }
 
-/* Auth Button (Nút bấm đẹp hơn) */
+/* Auth Button  */
 .auth-button {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -307,7 +307,7 @@ body {
   text-decoration: underline;
 }
 
-/* Password Strength (Không thay đổi) */
+/* Password Strength */
 .password-strength {
   display: flex;
   gap: 0.5rem;
@@ -359,7 +359,7 @@ body {
   }
 }
 
-/* Updated loading state (Không thay đổi) */
+/* Updated loading state */
 .loading {
   position: relative;
   overflow: hidden;
@@ -400,9 +400,6 @@ body {
 .form-group input[type="password"] {
     padding-right: 40px; /* Thêm padding để không che icon */
 }
-/* =============================================== */
-/* CSS SỬA LỖI HIỂN THỊ CÁC NÚT LỌC (Filter/Category Buttons) */
-/* =============================================== */
 
 /* Container chứa tất cả các nút lọc/Category */
 .filter-controls {

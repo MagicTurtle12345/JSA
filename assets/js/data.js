@@ -30,7 +30,6 @@ function findUserByEmail(email) {
 }
 
 /**
- * [PUBLIC API] Mô phỏng API Đăng ký (Register)
  * @param {Object} userData - Dữ liệu người dùng: name, email, password, phone.
  * @returns {Promise<Object>} Trả về thông tin người dùng nếu thành công.
  */
@@ -74,7 +73,6 @@ function registerUser(userData) {
 }
 
 /**
- * [PUBLIC API] Mô phỏng API Đăng nhập (Login)
  * @param {string} email - Email người dùng.
  * @param {string} password - Mật khẩu.
  * @returns {Promise<Object>} Trả về thông tin người dùng nếu thành công.

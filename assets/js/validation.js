@@ -376,7 +376,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-// Export for potential use in other scripts
 window.AuthValidation = {
   validators,
   validateForm,
@@ -387,7 +386,6 @@ window.AuthValidation = {
 
 
 /**
- * Thiết lập chức năng bật/tắt hiển thị mật khẩu.
  */
 function setupPasswordToggle() {
     const toggleButtons = $$(".toggle-password");

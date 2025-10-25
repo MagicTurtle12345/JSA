@@ -34,7 +34,7 @@ const defaultRecipes = [
 if (!localStorage.getItem("DefaultRecipes")==null) {
     localStorage.setItem("recipes", JSON.stringify(defaultRecipes));
 }
-// Recipe management system
+
 class RecipeManager {
     constructor() {
         this.recipes = [];
@@ -341,7 +341,7 @@ class RecipeManager {
     
 
     
-    // CẬP NHẬT: Thêm sự kiện mở modal chi tiết
+    //Thêm sự kiện mở modal chi tiết
     createRecipeCard(recipe) {
         const isFavorite = this.favorites.has(recipe.id);
         
